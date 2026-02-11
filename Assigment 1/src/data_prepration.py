@@ -1,9 +1,3 @@
-"""
-Data Preparation Script - Phase A
-Handles data versioning, cleaning, and feature engineering
-All parameters read from config.yaml
-"""
-
 import pandas as pd
 import numpy as np
 import yaml
@@ -14,13 +8,11 @@ import os
 import pickle
 import subprocess
 
-
 def load_config(config_path='config.yaml'):
     """Load configuration from YAML file"""
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
     return config
-
 
 def log_to_manifest(message, manifest_path='data/manifest.txt', time=True):
     """Log data processing steps to manifest file"""
@@ -124,10 +116,6 @@ def engineer_features(df, config):
 
 
 def split_train_production(df, config):
-    """
-    Split data chronologically to simulate time-series drift
-    First 7000 for training, last 3000 for production monitoring
-    """
     train_size = config['data']['train_size']
     
     df_train = df.iloc[:train_size].copy()
