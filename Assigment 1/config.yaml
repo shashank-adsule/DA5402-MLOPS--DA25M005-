@@ -1,0 +1,97 @@
+# =============================================================================
+# MLOps Assigment 1
+# Single Source of Truth for all parameters
+# =============================================================================
+
+# Project Metadata
+project_name: "MLOPS Assigment 1"
+author: "Shashank Satish Adsule (DA25M005)"
+creation_date: "2026-02-09"
+
+# Data Paths - All relative to project root
+data:
+  data_path: "data/"
+  raw_path: "data/raw/ai4i2020.csv"
+  processed_dir: "data/processed/"
+  production_dir: "data/production/"
+  current_version: "v1"
+  train_size: 7000  # First 7000 samples for training
+  test_size: 3000   # Last 3000 samples for production monitoring
+  plots_path: "plots/"
+
+# Feature Engineering
+features:
+  # Columns to use as features
+  numeric_features:
+    - "Air temperature [K]"
+    - "Process temperature [K]"
+    - "Rotational speed [rpm]"
+    - "Torque [Nm]"
+    - "Tool wear [min]"
+  
+  categorical_features:
+    - "Type"
+  
+  # Target variable
+  target: "Machine failure"         # from ai4i2020.csv
+  
+  # Feature engineering options
+  create_interactions: true
+  create_power_feature: true  # Torque * Rotational speed
+  create_temp_diff: true      # Process temp - Air temp
+
+# Model Hyperparameters
+model_params:
+  algorithm: "RandomForest"
+  n_estimators: 100
+  max_depth: 10
+  min_samples_split: 5
+  min_samples_leaf: 2
+  random_state: 42
+  class_weight: "balanced"  # Handle imbalanced classes
+  n_jobs: -1
+
+# Training Configuration
+training:
+  test_split: 0.2  # From training data, use 20% for validation
+  stratify: true
+  shuffle: false  # Keep temporal order for time-series nature
+
+# Deployment Settings
+deployment:
+  model_path: "models/model_v1.pkl"
+  metadata_path: "models/model_metadata.json"
+  api_host: "127.0.0.1"
+  api_port: 5000
+  prediction_threshold: 0.5  # Classification threshold for failure
+
+# Monitoring Thresholds
+monitoring:
+  # Trigger retraining if accuracy drops below this
+  accuracy_threshold: 0.80
+  
+  # Trigger retraining if precision drops below this
+  precision_threshold: 0.75
+  
+  # Trigger retraining if recall drops below this
+  recall_threshold: 0.70
+  
+  # Trigger alert if drift detected
+  drift_threshold: 0.15  # 15% change in feature distributions
+  
+  # Check frequency
+  check_interval_requests: 100  # Check every 100 predictions
+
+# Logging
+logging:
+  deployment_log: "deployment_log.csv"
+  prediction_log: "data/production/predictions.csv"
+  monitoring_log: "models/monitoring_log.csv"
+  manifest_file: "data/manifest.txt"
+  model_registry: "models/model_metadata.log"
+
+# Version Control
+versioning:
+  data_version: "v1"
+  model_version: "v1"
+  code_commit: "initial"  # Will be updated with git hash 
