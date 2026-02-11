@@ -1,0 +1,4 @@
+timestamp,model_version,samples,accuracy,precision,recall,f1_score,drift_detected,retraining_needed,trigger_reasons
+2026-02-10 16:18:26,v1,3000,1.0000,1.0000,1.0000,1.0000,True,False,None
+2026-02-10 16:19:06,v1,3000,1.0000,1.0000,1.0000,1.0000,True,False,None
+2026-02-10 16:27:58,v1,3000,1.0000,1.0000,1.0000,1.0000,True,False,None

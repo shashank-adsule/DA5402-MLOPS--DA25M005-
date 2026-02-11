@@ -1,0 +1,80 @@
+{
+  "model_version": "v1",
+  "data_version": "v1",
+  "training_date": "2026-02-11 16:19:57",
+  "git_commit": "49c5a72a69d40623f7a8e0cd5b0a09ca3e26b236",
+  "config_file": "config.yaml",
+  "algorithm": "RandomForest",
+  "hyperparameters": {
+    "algorithm": "RandomForest",
+    "n_estimators": 100,
+    "max_depth": 10,
+    "min_samples_split": 5,
+    "min_samples_leaf": 2,
+    "random_state": 42,
+    "class_weight": "balanced",
+    "n_jobs": -1
+  },
+  "metrics": {
+    "accuracy": 0.9921428571428571,
+    "precision": 0.88,
+    "recall": 0.7333333333333333,
+    "f1_score": 0.8,
+    "roc_auc": 0.9531873479318737
+  },
+  "features": [
+    "Air temperature [K]",
+    "Process temperature [K]",
+    "Rotational speed [rpm]",
+    "Torque [Nm]",
+    "Tool wear [min]",
+    "Power",
+    "Temp_diff",
+    "Torque_ToolWear",
+    "Speed_ToolWear",
+    "Type_encoded"
+  ],
+  "feature_importance": [
+    {
+      "feature": "Rotational speed [rpm]",
+      "importance": 0.2590035091112525
+    },
+    {
+      "feature": "Torque [Nm]",
+      "importance": 0.17829325375113061
+    },
+    {
+      "feature": "Power",
+      "importance": 0.1759595877776247
+    },
+    {
+      "feature": "Torque_ToolWear",
+      "importance": 0.10522210527325017
+    },
+    {
+      "feature": "Temp_diff",
+      "importance": 0.09143580252765554
+    },
+    {
+      "feature": "Tool wear [min]",
+      "importance": 0.07178867392609936
+    },
+    {
+      "feature": "Speed_ToolWear",
+      "importance": 0.05287988977317477
+    },
+    {
+      "feature": "Air temperature [K]",
+      "importance": 0.03237231289136423
+    },
+    {
+      "feature": "Process temperature [K]",
+      "importance": 0.028493131007889198
+    },
+    {
+      "feature": "Type_encoded",
+      "importance": 0.004551733960559071
+    }
+  ],
+  "data_path": "data/processed/v1_train_processed.csv"
+}

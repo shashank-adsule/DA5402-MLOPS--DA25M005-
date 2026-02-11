@@ -1,0 +1,36 @@
+[2026-02-10 16:27:50] Loaded training data: data/processed/v1_train_processed.csv (7000 samples)
+[2026-02-10 16:27:50] Features: 16, Target: Machine failure
+[2026-02-10 16:27:50] Model trained: RandomForest with n_estimators=100, max_depth=10
+[2026-02-10 16:27:50] Evaluation metrics - Accuracy: 1.0000, Precision: 1.0000, Recall: 1.0000
+[2026-02-10 16:27:50] Model saved: models/model_v1.pkl
+[2026-02-10 16:27:50] Metadata saved: models/model_metadata.json
+
+======================================================================
+MODEL VERSION: v1
+Training Date: 2026-02-10 16:27:50
+Data Version: v1
+Git Commit: 7f60887ea8f213548e29c444a535cf4fea2ec274
+Algorithm: RandomForest
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1-Score: 1.0000
+======================================================================
+[2026-02-11 16:19:57] Loaded training data: data/processed/v1_train_processed.csv (7000 samples)
+[2026-02-11 16:19:57] Features: 10, Target: Machine failure
+[2026-02-11 16:19:57] Model trained: RandomForest with n_estimators=100, max_depth=10
+[2026-02-11 16:19:57] Evaluation metrics - Accuracy: 0.9921, Precision: 0.8800, Recall: 0.7333
+[2026-02-11 16:19:57] Model saved: models/model_v1.pkl
+[2026-02-11 16:19:57] Metadata saved: models/model_metadata.json
+
+======================================================================
+MODEL VERSION: v1
+Training Date: 2026-02-11 16:19:57
+Data Version: v1
+Git Commit: 49c5a72a69d40623f7a8e0cd5b0a09ca3e26b236
+Algorithm: RandomForest
+Accuracy: 0.9921
+Precision: 0.8800
+Recall: 0.7333
+F1-Score: 0.8000
+======================================================================
