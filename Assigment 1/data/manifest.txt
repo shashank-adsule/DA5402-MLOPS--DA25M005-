@@ -1,0 +1,21 @@
+=======================| DATA PROCESSING MANIFEST |========================
+
+[2026-02-11 15:53:38] Loading raw data from data/raw/ai4i2020.csv
+[2026-02-11 15:53:38] Successfully loaded 10000 samples
+[2026-02-11 15:53:38] Starting data cleaning process
+[2026-02-11 15:53:38] Data is clean - no rows removed
+[2026-02-11 15:53:38] Chronological split: 7000 training samples, 3000 production samples
+[2026-02-11 15:53:38] Starting feature engineering
+[2026-02-11 15:53:38] Feature engineering complete: created ['Power', 'Temp_diff', 'Torque_ToolWear', 'Speed_ToolWear']
+[2026-02-11 15:53:38] Starting feature engineering
+[2026-02-11 15:53:38] Feature engineering complete: created ['Power', 'Temp_diff', 'Torque_ToolWear', 'Speed_ToolWear']
+[2026-02-11 15:53:38] Encoded categorical features: ['Type']
+[2026-02-11 15:53:38] Scaled 10 numerical features
+[2026-02-11 15:53:38] Saved processed data version v1_train: data/processed/v1_train_processed.csv
+[2026-02-11 15:53:38] Saved production data: data/production/v1_production.csv
+
+=======================| DATA PREPARATION COMPLETE |=======================
+[2026-02-11 15:53:38] Data version: v1
+[2026-02-11 15:53:38] Training samples: 7000
+[2026-02-11 15:53:38] Production samples: 3000
+[2026-02-11 15:53:38] Git Commit Hash: 379b29b7cb6dfaf54a308771e8c3322a5a444319
