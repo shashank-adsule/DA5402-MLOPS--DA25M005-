@@ -61,7 +61,7 @@ def log_deployment(config):
     
     # Prepare deployment record
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    model_version = config['versioning']['model_version']
+    model_version = version
     model_path = f"{config['deployment']['model_path']}{version}.pkl"
     
     # Write to CSV
@@ -116,7 +116,7 @@ def log_prediction(input_data, prediction, probability, config):
             timestamp,
             int(prediction),
             float(probability),
-            config['versioning']['model_version'],
+            f"v{get_next_model_version(os.path.dirname(config['deployment']["model_path"]))}",
             json.dumps(input_data)
         ])
 

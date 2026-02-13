@@ -251,13 +251,15 @@ def generate_monitoring_report(prod_metrics, comparison, drift_features,
     report_path = config["logging"]["monitoring_report"]
     os.makedirs(os.path.dirname(report_path),exist_ok=True)
     
+    version=f"v{get_next_model_version(os.path.dirname(config['deployment']['model_path']))}"
+
     with open(report_path, 'w') as f:
         f.write("=" * 70 + "\n")
         f.write("PRODUCTION MONITORING REPORT\n")
         f.write("=" * 70 + "\n\n")
         
         f.write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        f.write(f"Model Version: {config['versioning']['model_version']}\n")
+        f.write(f"Model Version: {version}\n")
         f.write(f"Data Version: {config['versioning']['data_version']}\n\n")
         
         f.write("-" * 70 + "\n")
@@ -292,7 +294,7 @@ def generate_monitoring_report(prod_metrics, comparison, drift_features,
         f.write("RETRAINING RECOMMENDATION\n")
         f.write("-" * 70 + "\n")
         if triggers:
-            f.write("⚠ RETRAINING RECOMMENDED\n\n")
+            f.write("RETRAINING RECOMMENDED\n\n")
             f.write("Reasons:\n")
             for i, trigger in enumerate(triggers, 1):
                 f.write(f"{i}. {trigger}\n")
