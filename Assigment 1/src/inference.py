@@ -7,6 +7,7 @@ import pickle
 import os
 from datetime import datetime
 import csv
+import re
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -35,6 +36,19 @@ def load_metadata(metadata_path):
     with open(metadata_path, 'r') as f:
         return json.load(f)
 
+def get_next_model_version(folder_path):
+    pattern = r"model_v(\d+)\.pkl"
+    versions = []
+
+    for file in os.listdir(folder_path):
+        match = re.match(pattern, file)
+        if match:
+            versions.append(int(match.group(1)))
+
+    if not versions:
+        return 1   # If no model exists, start from v1
+
+    return max(versions)
 
 def log_deployment(config):
     """Log deployment event to deployment_log.csv"""
@@ -42,11 +56,13 @@ def log_deployment(config):
     
     # Check if file exists
     file_exists = os.path.isfile(log_path)
+
+    version=f"v{get_next_model_version(os.path.dirname(config['deployment']['model_path']))}"
     
     # Prepare deployment record
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     model_version = config['versioning']['model_version']
-    model_path = config['deployment']['model_path']
+    model_path = f"{config['deployment']['model_path']}{version}.pkl"
     
     # Write to CSV
     with open(log_path, 'a', newline='') as f:
@@ -298,8 +314,9 @@ def initialize_api():
     CONFIG = load_config()
     print(f"\n✓ Loaded configuration")
     
+    version=f"v{get_next_model_version(os.path.dirname(CONFIG['deployment']['model_path']))}"
     # Load model
-    model_path = CONFIG['deployment']['model_path']
+    model_path = f"{CONFIG['deployment']['model_path']}{version}.pkl"
     
     if not os.path.exists(model_path):
         print(f"\n✗ ERROR: Model not found at {model_path}")
@@ -318,7 +335,7 @@ def initialize_api():
     log_deployment(CONFIG)
     
     print(f"\u001b[33m{'MODEL INFORMATION':=^75}\u001b[0m")
-    
+
     print(f"Version: {METADATA['model_version']}")
     print(f"Algorithm: {METADATA['algorithm']}")
     print(f"Training Date: {METADATA['training_date']}")

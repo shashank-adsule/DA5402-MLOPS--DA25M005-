@@ -8,7 +8,7 @@ import numpy as np
 import yaml
 import json
 import pickle
-import os
+import os, re
 from datetime import datetime
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
@@ -105,17 +105,15 @@ def compare_with_training_metrics(prod_metrics, training_metrics):
     return comparison
 
 
-def detect_feature_drift(df_train, df_prod, threshold=0.15):
+def detect_feature_drift(df_train, df_prod,config, threshold=0.15, ):
     """
     Detect distribution drift in features
     Using simple statistical comparison (mean and std deviation)
     """
-    print("\n" + "=" * 70)
-    print("FEATURE DRIFT DETECTION")
-    print("=" * 70)
-    
+    print(f"\u001b[33m{'FEATURE DRIFT DETECTION':=^75}\u001b[0m")
+
     # Exclude non-numeric and target columns
-    exclude_cols = ['UDI', 'Product ID', 'Target', 'Failure Type']
+    exclude_cols = ['UDI', 'Product ID', config["features"]["targets"], 'Failure Type']
     numeric_cols = [col for col in df_train.columns 
                     if col not in exclude_cols and 
                     pd.api.types.is_numeric_dtype(df_train[col])]
@@ -166,9 +164,7 @@ def check_retraining_trigger(prod_metrics, config):
     """
     Check if retraining should be triggered based on thresholds
     """
-    print("\n" + "=" * 70)
-    print("RETRAINING TRIGGER CHECK")
-    print("=" * 70)
+    print(f"\u001b[33m{'RETRAINING TRIGGER CHECK':=^75}\u001b[0m")
     
     thresholds = config['monitoring']
     
@@ -218,7 +214,7 @@ def log_monitoring_results(prod_metrics, drift_detected, triggers, config):
     file_exists = os.path.isfile(log_path)
     
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    model_version = config['versioning']['model_version']
+    model_version = f"v{get_next_model_version(os.path.dirname(config['deployment']['model_path']))}"
     
     # Write to CSV
     with open(log_path, 'a', newline='') as f:
@@ -307,6 +303,19 @@ def generate_monitoring_report(prod_metrics, comparison, drift_features,
     
     print(f"✓ Detailed report saved to {report_path}")
 
+def get_next_model_version(folder_path):
+    pattern = r"model_v(\d+)\.pkl"
+    versions = []
+
+    for file in os.listdir(folder_path):
+        match = re.match(pattern, file)
+        if match:
+            versions.append(int(match.group(1)))
+
+    if not versions:
+        return 1   # If no model exists, start from v1
+
+    return max(versions)
 
 def main():
     """Main monitoring pipeline"""
@@ -317,9 +326,11 @@ def main():
     config = load_config()
     print(f"✓ Loaded configuration")
     
+    version=f"v{get_next_model_version(os.path.dirname(config['deployment']['model_path']))}"
+
     # Load model and metadata
     print("\n[STEP 1] Loading model and metadata...")
-    model_path = config['deployment']['model_path']
+    model_path = f"{config['deployment']['model_path']}{version}.pkl"
     metadata_path = config['deployment']['metadata_path']
     
     model = load_model(model_path)
@@ -375,7 +386,7 @@ def main():
     df_train = pd.read_csv(train_path)
     
     drift_detected, drift_features = detect_feature_drift(
-        df_train, df_prod, 
+        df_train, df_prod,config,
         threshold=config['monitoring']['drift_threshold']
     )
     
