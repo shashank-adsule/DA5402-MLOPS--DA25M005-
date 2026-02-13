@@ -7,5 +7,10 @@ timestamp,model_version,model_path,status,port,host
 2026-02-12 00:15:47,v1,models/model_v1.pkl,deployed,5000,127.0.0.1
 2026-02-12 17:23:53,v1,models/model_v1.pkl,deployed,5000,127.0.0.1
 2026-02-12 23:55:03,v1,models/model_v1.pkl,deployed,5000,127.0.0.1
-2026-02-13 10:28:58,v1,models/model_v1.pkl,deployed,5000,127.0.0.12026-02-13 15:10:21,v1,models/model_v1.pkl,deployed,5000,127.0.0.1
-2026-02-13 15:47:16,v1,models/model_v1.pkl,deployed,5000,127.0.0.1
+2026-02-13 10:28:58,v1,models/model_v1.pkl,deployed,5000,127.0.0.1
+2026-02-13 15:10:21,v1,models/model_v1.pkl,deployed,5000,127.0.0.1
+2026-02-13 15:47:16,v1,models/model_v1.pkl,deployed,5000,127.0.0.12026-02-13 20:34:48,v1,models/model_v2.pkl,deployed,5000,127.0.0.1
+2026-02-13 20:36:03,v1,models/model_v2.pkl,deployed,5000,127.0.0.1
+2026-02-13 20:57:05,v2,models/model_v2.pkl,deployed,5000,127.0.0.1
+2026-02-13 21:00:09,v2,models/model_v2.pkl,deployed,5000,127.0.0.1
+2026-02-13 21:02:17,v2,models/model_v2.pkl,deployed,5000,127.0.0.1
