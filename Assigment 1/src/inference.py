@@ -116,7 +116,7 @@ def log_prediction(input_data, prediction, probability, config):
             timestamp,
             int(prediction),
             float(probability),
-            f"v{get_next_model_version(os.path.dirname(config['deployment']["model_path"]))}",
+            f"v{get_next_model_version(os.path.dirname(config['deployment']['model_path']))}",
             json.dumps(input_data)
         ])
 
