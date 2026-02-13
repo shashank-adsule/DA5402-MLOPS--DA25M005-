@@ -1,0 +1,79 @@
+======================================================================
+PRODUCTION MONITORING REPORT
+======================================================================
+
+Timestamp: 2026-02-13 10:27:27
+Model Version: v1
+Data Version: v1
+
+----------------------------------------------------------------------
+PRODUCTION METRICS
+----------------------------------------------------------------------
+Samples Evaluated: 3000
+Accuracy:  0.9913
+Precision: 0.8302
+Recall:    0.7213
+F1-Score:  0.7719
+
+----------------------------------------------------------------------
+COMPARISON WITH TRAINING BASELINE
+----------------------------------------------------------------------
+Accuracy:
+  Training:   0.9921
+  Production: 0.9913
+  Change:     -0.08%
+
+Precision:
+  Training:   0.8800
+  Production: 0.8302
+  Change:     -5.66%
+
+Recall:
+  Training:   0.7333
+  Production: 0.7213
+  Change:     -1.64%
+
+F1_score:
+  Training:   0.8000
+  Production: 0.7719
+  Change:     -3.51%
+
+----------------------------------------------------------------------
+DRIFT DETECTION
+----------------------------------------------------------------------
+Features with Drift: 7
+
+Feature: Air temperature [K]
+  Mean Drift: 0.6410
+  Std Drift:  0.4407
+
+Feature: Process temperature [K]
+  Mean Drift: 0.0401
+  Std Drift:  0.2042
+
+Feature: Machine failure
+  Mean Drift: 0.0992
+  Std Drift:  0.2772
+
+Feature: HDF
+  Mean Drift: 0.1292
+  Std Drift:  1.0000
+
+Feature: PWF
+  Mean Drift: 0.0437
+  Std Drift:  0.2344
+
+Feature: RNF
+  Mean Drift: 0.0358
+  Std Drift:  0.4756
+
+Feature: Temp_diff
+  Mean Drift: 1.4422
+  Std Drift:  0.4531
+
+----------------------------------------------------------------------
+RETRAINING RECOMMENDATION
+----------------------------------------------------------------------
+No retraining needed at this time
+
+======================================================================
