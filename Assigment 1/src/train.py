@@ -12,7 +12,7 @@ from sklearn.metrics import (
     confusion_matrix, classification_report, roc_auc_score
 )
 import subprocess
-
+import re
 
 def load_config(config_path='config.yaml'):
     """Load configuration from YAML file"""
@@ -174,25 +174,45 @@ def get_feature_importance(model, feature_names):
     
     return importance_df
 
+def get_next_model_version(folder_path):
+    pattern = r"model_v(\d+)\.pkl"
+    versions = []
+
+    for file in os.listdir(folder_path):
+        match = re.match(pattern, file)
+        if match:
+            versions.append(int(match.group(1)))
+
+    if not versions:
+        return 1   # If no model exists, start from v1
+
+    return max(versions) + 1
 
 def save_model(model, config):
     """Save trained model to disk"""
     model_path = config['deployment']['model_path']
     
+    version=f"v{get_next_model_version(os.path.dirname(model_path))}"
+
+    # print(version)
+
+
     # Create directory if needed
     os.makedirs(os.path.dirname(model_path), exist_ok=True)
     
+
+
     # Save model
-    with open(model_path, 'wb') as f:
+    with open(f"{model_path}{version}.pkl", 'wb') as f:
         pickle.dump(model, f)
     
     print(f"\n✓ Model saved to: {model_path}")
     log_to_registry(f"Model saved: {model_path}")
     
-    return model_path
+    return model_path, version
 
 
-def save_metadata(metrics, feature_names, importance_df, config):
+def save_metadata(metrics, feature_names, importance_df, config, version):
     """Save model metadata for reproducibility"""
     metadata_path = config['deployment']['metadata_path']
     
@@ -201,7 +221,7 @@ def save_metadata(metrics, feature_names, importance_df, config):
     
     # Create metadata dictionary
     metadata = {
-        'model_version': config['versioning']['model_version'],
+        'model_version': version,
         'data_version': config['versioning']['data_version'],
         'training_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'git_commit': commit_hash,
@@ -244,9 +264,7 @@ def save_metadata(metrics, feature_names, importance_df, config):
 
 def main():
     """Main training pipeline"""
-    print("=" * 70)
-    print("MANUAL MLOPS - MODEL TRAINING PIPELINE")
-    print("=" * 70)
+    print(f"\u001b[33m{'MODEL TRAINING PIPELINE':=^75}\u001b[0m")
     
     # Load configuration
     config = load_config()
@@ -305,11 +323,11 @@ def main():
     
     # Step 7: Save model
     print("\n[STEP 7] Saving model artifacts...")
-    model_path = save_model(model, config)
+    model_path, version = save_model(model, config)
     
     # Step 8: Save metadata
     print("\n[STEP 8] Saving metadata...")
-    metadata = save_metadata(metrics, feature_names, importance_df, config)
+    metadata = save_metadata(metrics, feature_names, importance_df, config,version)
     
     # Final summary
     print("\n" + "=" * 70)
