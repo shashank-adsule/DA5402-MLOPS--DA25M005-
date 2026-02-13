@@ -34,6 +34,13 @@ features:
   
   # Target variable
   target: "Machine failure"         # from ai4i2020.csv
+  targets: 
+    - "Machine failure"
+    - "TWF"
+    - "HDF"
+    - "PWF"
+    - "OSF"
+    - "RNF"
   
   # Feature engineering options
   create_interactions: true
@@ -43,7 +50,7 @@ features:
 # Model Hyperparameters
 model_params:
   algorithm: "RandomForest"
-  n_estimators: 100
+  n_estimators: 70
   max_depth: 10
   min_samples_split: 5
   min_samples_leaf: 2
@@ -59,7 +66,8 @@ training:
 
 # Deployment Settings
 deployment:
-  model_path: "models/model_v1.pkl"
+  # model_path: "models/model_v1.pkl"
+  model_path: "models/model_"
   metadata_path: "models/model_metadata.json"
   api_host: "127.0.0.1"
   api_port: 5000
@@ -84,11 +92,12 @@ monitoring:
 
 # Logging
 logging:
-  deployment_log: "deployment_log.csv"
+  deployment_log: "logs/deployment_log.csv"
   prediction_log: "data/production/predictions.csv"
   monitoring_log: "models/monitoring_log.csv"
   manifest_file: "data/manifest.txt"
   model_registry: "models/model_metadata.log"
+  monitoring_report: "logs/monitoring_report.txt"
 
 # Version Control
 versioning:
