@@ -50,7 +50,7 @@ features:
 # Model Hyperparameters
 model_params:
   algorithm: "RandomForest"
-  n_estimators: 70
+  n_estimators: 100
   max_depth: 10
   min_samples_split: 5
   min_samples_leaf: 2
@@ -77,12 +77,15 @@ deployment:
 monitoring:
   # Trigger retraining if accuracy drops below this
   accuracy_threshold: 0.80
+  # accuracy_threshold: 0.90
   
   # Trigger retraining if precision drops below this
   precision_threshold: 0.75
+  # precision_threshold: 0.85
   
   # Trigger retraining if recall drops below this
   recall_threshold: 0.70
+  # recall_threshold: 0.80
   
   # Trigger alert if drift detected
   drift_threshold: 0.15  # 15% change in feature distributions
