@@ -19,7 +19,7 @@ manual_mlops_project/
 │   └── manifest.txt            # Data lineage log
 │
 ├── models/
-│   ├── model_v#.pkl            # Trained model
+│   ├── model_v#.pkl            # Trained models (#-> number of version)
 │   ├── model_metadata.json     # Model metadata
 │   ├── model_metadata.log      # Model registry log
 │   └── monitoring_log.csv      # Production monitoring log
@@ -40,6 +40,7 @@ manual_mlops_project/
 │
 ├── config.yaml                 # Single source of truth for configuration
 ├── AI_DISCLOUSE                 # Single source of truth for configuration
+├── Report.pdf                 # 2-3 page Documentaion Report for the challenges and issuses faced during this assigment 
 ├── requirements.txt            # Python dependencies
 └── README.md                   # This file
 ```
