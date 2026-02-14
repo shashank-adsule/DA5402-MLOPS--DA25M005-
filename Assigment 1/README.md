@@ -39,7 +39,7 @@ manual_mlops_project/
 │   └── deployment_log.csv          # Deployment history 
 │
 ├── config.yaml                 # Single source of truth for configuration
-├── AI_DISCLOUSE                 # Single source of truth for configuration
+├── AI_DISCLOUSE                 # AI Disclouse page
 ├── Report.pdf                 # 2-3 page Documentaion Report for the challenges and issuses faced during this assigment 
 ├── requirements.txt            # Python dependencies
 └── README.md                   # This file
