@@ -193,7 +193,7 @@ To reproduce model training:
 Three smoke tests verify API functionality:
 
 ```bash
-python test_api.py
+python api/test_api.py
 ```
 
 Tests:
